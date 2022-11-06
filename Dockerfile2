@@ -1,18 +1,11 @@
 FROM node
 WORKDIR /usr
-
 COPY package.json ./
-
-
 COPY index.ts ./index.ts
-
 RUN USER=ROOT
-
-
 RUN npm install
 
+COPY --from=0 /usr/app/ ./
 RUN npx tsc ./index.ts
-
 EXPOSE 4004
-
 CMD ["npm","run","start"]
